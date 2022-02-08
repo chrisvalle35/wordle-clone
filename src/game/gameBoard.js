@@ -148,17 +148,10 @@ export default function GameBoard() {
       let newList = [...guessList];
       newList[attemptCount] = newGuess;
       setGuessList(newList);
-
-      // console.log("isMatchingChar: ", isMatchingChar);
-      // setIsMatchingChar(`${isMatchingChar} ${char} `);
-
       setCurrentAttempt("");
       setAttemptCount(attemptCount + 1);
       setIsSubmitting(true);
 
-      setCurrentAttempt((previousAttempt) => {
-        return previousAttempt + currentAttempt;
-      });
       if (currentAttempt === WINNING_WORD) {
         setWinner(true);
       }
@@ -181,30 +174,31 @@ export default function GameBoard() {
     if (!letter) {
       console.log("no valid input");
     }
+
     if (letter === "enter") {
       console.log("submitting");
       onEnterPressed();
     } else if (letter === "backspace") {
       console.log("trimming");
       setCurrentAttempt(letter.slice(0, letter.length - 1));
+    } else if (letter === "shift") {
+      console.log("shifty");
     } else if (charsOnlyRegex.test(letter)) {
       if (attemptCount < 5) {
-        console.log("a letter: ", letter);
-        console.log("input: ", currentAttempt);
-        const newInput = currentAttempt.concat(letter);
-        setCurrentAttempt((previousAttempt) => {
-          return previousAttempt + currentAttempt;
-        });
-
-        // setCurrentAttempt(newInput);
-        console.log("new input", newInput, currentAttempt);
+        console.log("Setting: ", currentAttempt + letter);
+        const newAttempt = currentAttempt + letter;
+        setCurrentAttempt(newAttempt);
         const newGuess = {
           attemptNumber: attemptCount,
-          guess: currentAttempt,
+          guess: newAttempt,
           isSubmitted: false,
         };
+        // console.log("newGuess");
+        // console.log(JSON.stringify(newGuess, null, 2));
         let newList = [...guessList];
         newList[attemptCount] = newGuess;
+        // console.log("newList");
+        // console.log(JSON.stringify(newList, null, 2));
         setGuessList(newList);
       }
     }
