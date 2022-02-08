@@ -63,7 +63,12 @@ export default function GameBoard() {
 
                   return (
                     <>
-                      <div key={charIndex} className="key" style={keyStyles}>
+                      <div
+                        key={charIndex}
+                        className="key"
+                        style={keyStyles}
+                        onClick={() => setCurrentInputAttempt(char)}
+                      >
                         {char}
                       </div>
                     </>
