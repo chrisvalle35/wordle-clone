@@ -54,14 +54,6 @@ a {
   }
 }
 
-/* .charBox {
-  width: "50px";
-  height: "50px";
-  line-height: "50px";
-  border: "1px solid #aaa";
-  margin: "8px";
-} */
-
 .row {
   display: flex;
   justify-content: space-evenly;
@@ -69,4 +61,5 @@ a {
 
 .charbox {
   font-weight: bold;
+  color: lightgrey;
 }
