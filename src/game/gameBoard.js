@@ -4,6 +4,7 @@ import {
   isWordInWordList,
   getBackgroundColor,
   useLocalStorage,
+  getKeyColor,
 } from "./gameApi";
 
 export default function GameBoard() {
@@ -44,20 +45,16 @@ export default function GameBoard() {
         {[row1, row2, row3].map((row, rowIndex) => {
           return (
             <>
-              <div key={rowIndex} className="row">
+              <div id="keyrow" key={rowIndex} className="row">
                 {row.map((char, charIndex) => {
                   const keyStyles = {
                     padding: "15px",
+                    margin: "2px",
                     border: "1px solid whitesmoke",
                     color: "black",
                     fontWeight: "bold",
-                    backgroundColor: `${getBackgroundColor(
-                      char,
-                      guessList?.[rowIndex]?.isSubmitted,
-                      charIndex,
-                      WINNING_WORD,
-                      "lightgray"
-                    )}`,
+                    borderRadius: "10px",
+                    backgroundColor: `${getKeyColor(guessList, WINNING_WORD)}`,
                   };
 
                   return (
@@ -86,7 +83,6 @@ export default function GameBoard() {
       .fill("")
       .map((_blank, charIndex) => {
         const printedChar = guessList[rowIndex].guess[charIndex];
-        // const printedChar = guessList?.[rowIndex]?.guess[charIndex] || "";
 
         return (
           <div
@@ -221,13 +217,13 @@ export default function GameBoard() {
           {errorMsg}
         </>
       )}
-      <br />
+      {/* <br />
       <br />
       Guesses: {JSON.stringify(guessList)}
       <br />
       Current Input {JSON.stringify(currentAttempt)}
       <br />
-      Attempt #: {attemptCount}
+      Attempt #: {attemptCount} */}
     </>
   );
 }
