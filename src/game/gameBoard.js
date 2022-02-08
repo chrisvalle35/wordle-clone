@@ -24,12 +24,11 @@ export default function GameBoard() {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [attemptCount, setAttemptCount] = useLocalStorage("attemptCount", 0);
   const [currentAttempt, setCurrentAttempt] = useLocalStorage("attempt", "");
   const [guessList, setGuessList] = useLocalStorage("GAME_STATE", GAME_STATE);
-  const [attemptCount, setAttemptCount] = useLocalStorage("attemptCount", 0);
   const [isWinner, setWinner] = useLocalStorage("didWin", false);
   const [isGameOver, setGameOver] = useLocalStorage("didLose", false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -129,7 +128,7 @@ export default function GameBoard() {
   }
 
   function onEnterPressed() {
-    // console.log("word: ", word);
+    console.log("word: ", WINNING_WORD);
     const isWord = isWordInWordList(currentAttempt);
     console.log("isWord: ", isWord);
     console.log("input: ", currentAttempt);
@@ -150,7 +149,6 @@ export default function GameBoard() {
       setGuessList(newList);
       setCurrentAttempt("");
       setAttemptCount(attemptCount + 1);
-      setIsSubmitting(true);
 
       if (currentAttempt === WINNING_WORD) {
         setWinner(true);
@@ -180,7 +178,8 @@ export default function GameBoard() {
       onEnterPressed();
     } else if (letter === "backspace") {
       console.log("trimming");
-      setCurrentAttempt(letter.slice(0, letter.length - 1));
+
+      setCurrentAttempt(currentAttempt.slice(0, currentAttempt.length - 1));
     } else if (letter === "shift") {
       console.log("shifty");
     } else if (charsOnlyRegex.test(letter)) {
