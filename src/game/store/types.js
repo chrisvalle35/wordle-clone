@@ -1,0 +1,3 @@
+// REDUX ACTION TYPES
+
+export const SET_GUESS = "SET_GUESS";

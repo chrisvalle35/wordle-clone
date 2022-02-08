@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import GameBoard from "./game/gameBoard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <div className="container">
+      <main>
+        <h1 className="title">Wordle</h1>
+
+        <div className="grid">
+          <div className="card">
+            <GameBoard />
+          </div>
+        </div>
+      </main>
+
+      <footer>
         <a
-          className="App-link"
-          href="https://reactjs.org"
+          href="https://chrisvalle.io"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          A Chrisco Product <br /> Moar Content Plz
         </a>
-      </header>
+      </footer>
     </div>
   );
 }
