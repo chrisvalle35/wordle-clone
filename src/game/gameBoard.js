@@ -26,7 +26,6 @@ export default function GameBoard() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const [attemptCount, setAttemptCount] = useLocalStorage("attemptCount", 0);
-  const [currentAttempt, setCurrentAttempt] = useLocalStorage("attempt", "");
   const [guessList, setGuessList] = useLocalStorage("GAME_STATE", GAME_STATE);
   const [isWinner, setWinner] = useLocalStorage("didWin", false);
   const [isGameOver, setGameOver] = useLocalStorage("didLose", false);
@@ -125,9 +124,10 @@ export default function GameBoard() {
 
   function onEnterPressed() {
     console.log("word: ", WINNING_WORD);
+    const currentAttempt = guessList[attemptCount].guess;
     const isWord = isWordInWordList(currentAttempt);
-    console.log("isWord: ", isWord);
-    console.log("input: ", currentAttempt);
+    // console.log("isWord: ", isWord);
+    // console.log("input: ", currentAttempt);
 
     if (isWord === false) {
       setErrorMsg("Word must be in list");
@@ -143,7 +143,6 @@ export default function GameBoard() {
       let newList = [...guessList];
       newList[attemptCount] = newGuess;
       setGuessList(newList);
-      setCurrentAttempt("");
       setAttemptCount(attemptCount + 1);
 
       if (currentAttempt === WINNING_WORD) {
@@ -158,31 +157,47 @@ export default function GameBoard() {
   }
 
   function setCurrentInputAttempt(char) {
-    console.log("keydown", WINNING_WORD);
-    console.log("raw key: ", char);
+    // console.log("keydown", WINNING_WORD);
+    // console.log("raw key: ", char);
     const charsOnlyRegex = new RegExp(/[a-z]/);
 
     const letter = char.toLowerCase();
-    console.log(charsOnlyRegex.test(letter));
+    // console.log(charsOnlyRegex.test(letter));
 
     if (!letter) {
       console.log("no valid input");
     }
 
     if (letter === "enter") {
-      console.log("submitting");
+      // console.log("submitting");
       onEnterPressed();
     } else if (letter === "backspace") {
-      console.log("trimming");
+      // console.log("trimming");
+      const currentGuess = guessList[attemptCount].guess;
+      // console.log(currentGuess);
+      const newAttempt = currentGuess.slice(0, currentGuess.length - 1);
+      // console.log(newAttempt);
 
-      setCurrentAttempt(currentAttempt.slice(0, currentAttempt.length - 1));
+      const newGuess = {
+        attemptNumber: attemptCount,
+        guess: newAttempt,
+        isSubmitted: false,
+      };
+      let newList = [...guessList];
+      newList[attemptCount] = newGuess;
+      // console.log("newList");
+      // console.log(JSON.stringify(newList, null, 2));
+      setGuessList(newList);
+      // setCurrentAttempt(currentAttempt.slice(0, currentAttempt.length - 1));
     } else if (letter === "shift") {
       console.log("shifty");
     } else if (charsOnlyRegex.test(letter)) {
       if (attemptCount < 5) {
-        console.log("Setting: ", currentAttempt + letter);
-        const newAttempt = currentAttempt + letter;
-        setCurrentAttempt(newAttempt);
+        // console.log("Setting: ", currentAttempt + letter);
+        const currentGuess = guessList[attemptCount].guess;
+        // console.log("CURRENTGUESS", currentGuess);
+        const newAttempt = currentGuess + letter;
+
         const newGuess = {
           attemptNumber: attemptCount,
           guess: newAttempt,
@@ -207,7 +222,6 @@ export default function GameBoard() {
     function handleReset() {
       setAttemptCount(0);
       setGuessList(GAME_STATE);
-      setCurrentAttempt("");
       setWinner(false);
       setGameOver(false);
     }
