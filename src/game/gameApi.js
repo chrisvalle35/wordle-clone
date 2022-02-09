@@ -1,9 +1,8 @@
 import { useState } from "react";
-export const WORDLIST = require("./WORDLIST.json");
-
-export function getRandomWord() {
-  const randomWord = WORDLIST[Math.floor(Math.random() * WORDLIST.length)];
-  return randomWord;
+const WORDLIST = require("./WORDLIST.json");
+const WINNING_WORDS = require("./winningWords.json");
+export function getWinningWord() {
+  return WINNING_WORDS[Math.floor(Math.random() * WINNING_WORDS.length)];
 }
 
 export function isWordInWordList(word) {

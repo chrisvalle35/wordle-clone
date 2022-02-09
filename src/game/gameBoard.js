@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import {
-  getRandomWord,
+  getWinningWord,
   isWordInWordList,
   getBackgroundColor,
   useLocalStorage,
@@ -8,7 +8,7 @@ import {
 } from "./gameApi";
 
 export default function GameBoard() {
-  const wordRef = useRef(getRandomWord());
+  const wordRef = useRef(getWinningWord());
   const WINNING_WORD = wordRef.current;
   const MAX_GUESSES = 6;
   const MAX_WORD_LENGTH = 5;
