@@ -1,6 +1,6 @@
 import { useState } from "react";
-const WORDLIST = require("./WORDLIST.json");
-const WINNING_WORDS = require("./winningWords.json");
+const WORDLIST = require("./WORD_LIST.json");
+const WINNING_WORDS = require("./WINNING_WORDS.json");
 export function getWinningWord() {
   return WINNING_WORDS[Math.floor(Math.random() * WINNING_WORDS.length)];
 }
