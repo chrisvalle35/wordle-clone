@@ -203,6 +203,22 @@ export default function GameBoard() {
     setCurrentInputAttempt(e.key);
   }
 
+  function Reset() {
+    function handleReset() {
+      setAttemptCount(0);
+      setGuessList(GAME_STATE);
+      setCurrentAttempt("");
+      setWinner(false);
+      setGameOver(false);
+    }
+
+    return (
+      <>
+        <button onClick={handleReset}>Reset</button>
+      </>
+    );
+  }
+
   return (
     <>
       {isWinner === true ? (
@@ -217,8 +233,9 @@ export default function GameBoard() {
           {errorMsg}
         </>
       )}
-      {/* <br />
       <br />
+      <Reset />
+      {/* <br />
       Guesses: {JSON.stringify(guessList)}
       <br />
       Current Input {JSON.stringify(currentAttempt)}
