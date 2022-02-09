@@ -1,0 +1,13 @@
+TODO
+-------------------
+
+Fix input overflow 
+no texthighlight on keyboard hover
+Move reset btn to the Header anchor
+Tighten Boxes
+Mobile
+Better Win Page
+Reveal word for losers
+Deploy locally
+clean word lists
+add better winning words
