@@ -29,6 +29,24 @@ export default function GameBoard() {
   const [guessList, setGuessList] = useLocalStorage("GAME_STATE", GAME_STATE);
   const [isWinner, setWinner] = useLocalStorage("didWin", false);
   const [isGameOver, setGameOver] = useLocalStorage("didLose", false);
+  const usedCharSet = new Set();
+  const matchedCharSet = new Set();
+
+  const chars = guessList
+    .filter((guess) => guess.isSubmitted === true)
+    .map((guess) => guess.guess.split(""));
+
+  for (let i = 0; i <= attemptCount; i++) {
+    chars.forEach((word) => {
+      word.forEach((character, index) => {
+        usedCharSet.add(character);
+
+        if (WINNING_WORD[index] === character) {
+          matchedCharSet.add(character);
+        }
+      });
+    });
+  }
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -53,7 +71,12 @@ export default function GameBoard() {
                     color: "black",
                     fontWeight: "bold",
                     borderRadius: "10px",
-                    backgroundColor: `${getKeyColor(guessList, WINNING_WORD)}`,
+                    backgroundColor: `${getKeyColor(
+                      char,
+                      WINNING_WORD,
+                      usedCharSet,
+                      matchedCharSet
+                    )}`,
                   };
 
                   return (
@@ -171,7 +194,7 @@ export default function GameBoard() {
     if (letter === "enter") {
       // console.log("submitting");
       onEnterPressed();
-    } else if (letter === "backspace") {
+    } else if (letter === "backspace" || letter === "del") {
       // console.log("trimming");
       const currentGuess = guessList[attemptCount].guess;
       // console.log(currentGuess);

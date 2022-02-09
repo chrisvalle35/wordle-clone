@@ -34,39 +34,26 @@ export function getBackgroundColor(
   }
 }
 
-export function getKeyColor(guessList, winningWord) {
-  try {
-    console.log("guessList", "winningWord");
-    console.log(guessList, winningWord);
-    //  Logic
-    // for each guess
-    // If guess char at index === winningWord at index
-    // then green
-    // If winningWord.contains guess char at index
-    // then yellow
-    // If winningWord DOES NOTcontains guess char at index
-    // then dark gray
-    // else light gray for unused chars
-    // guessList.forEach((guess, index) => {
-    //   if (winningWord[index] === guess[index]) {
-    //     // return "green";
-    //     return "#6aaa64";
-    //   }
-    // });
-    // if (winningWord[charIndex] === formattedChar) {
-    //   // return "green";
-    //   return "#6aaa64";
-    // }
-    // if (winningWord.includes(formattedChar) === true) {
-    //   // return "yellow";
-    //   return "#b59f3b";
-    // } else if (winningWord.includes(formattedChar) === false) {
-    //   // GRAY
-    return "gray";
-    // }
-  } catch (err) {
-    console.error(err);
-    return "gray";
+export function getKeyColor(
+  keyboardEntry,
+  winningWord,
+  usedCharSet,
+  matchedCharSet
+) {
+  const formattedChar = keyboardEntry.toLowerCase();
+  if (usedCharSet.has(formattedChar)) {
+    if (matchedCharSet.has(formattedChar)) {
+      return "#6aaa64";
+    } else if (
+      usedCharSet.has(formattedChar) &&
+      winningWord.includes(formattedChar)
+    ) {
+      return "#b59f3b";
+    } else {
+      return "gray";
+    }
+  } else {
+    return "lightgray";
   }
 }
 
