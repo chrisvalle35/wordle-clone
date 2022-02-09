@@ -51,7 +51,8 @@ export default function GameBoard() {
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+    // }, []);
+  });
 
   function makeKeyboard() {
     const row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -152,7 +153,9 @@ export default function GameBoard() {
     // console.log("isWord: ", isWord);
     // console.log("input: ", currentAttempt);
 
-    if (isWord === false) {
+    if (currentAttempt.length !== MAX_WORD_LENGTH) {
+      setErrorMsg("Use a longer word");
+    } else if (isWord === false) {
       setErrorMsg("Word must be in list");
     } else if (currentAttempt.length <= MAX_WORD_LENGTH) {
       // console.log("input.length", input.length);
@@ -182,8 +185,12 @@ export default function GameBoard() {
   function setCurrentInputAttempt(char) {
     // console.log("keydown", WINNING_WORD);
     // console.log("raw key: ", char);
-    const charsOnlyRegex = new RegExp(/[a-z]/);
+    setErrorMsg("");
 
+    const currentGuess = guessList[attemptCount].guess;
+    // console.log("currentGuess: ", currentGuess, currentGuess.length);
+    const charsOnlyRegex = new RegExp(/[a-z]/);
+    // if (currentGuess.length -1 <= 5) {
     const letter = char.toLowerCase();
     // console.log(charsOnlyRegex.test(letter));
 
@@ -196,7 +203,7 @@ export default function GameBoard() {
       onEnterPressed();
     } else if (letter === "backspace" || letter === "del") {
       // console.log("trimming");
-      const currentGuess = guessList[attemptCount].guess;
+      // const currentGuess = guessList[attemptCount].guess;
       // console.log(currentGuess);
       const newAttempt = currentGuess.slice(0, currentGuess.length - 1);
       // console.log(newAttempt);
@@ -217,7 +224,7 @@ export default function GameBoard() {
     } else if (charsOnlyRegex.test(letter)) {
       if (attemptCount < 5) {
         // console.log("Setting: ", currentAttempt + letter);
-        const currentGuess = guessList[attemptCount].guess;
+        // const currentGuess = guessList[attemptCount].guess;
         // console.log("CURRENTGUESS", currentGuess);
         const newAttempt = currentGuess + letter;
 
@@ -235,6 +242,7 @@ export default function GameBoard() {
         setGuessList(newList);
       }
     }
+    // }
   }
 
   function handleKeyDown(e) {
@@ -247,6 +255,7 @@ export default function GameBoard() {
       setGuessList(GAME_STATE);
       setWinner(false);
       setGameOver(false);
+      wordRef.current = getWinningWord();
     }
 
     return (
@@ -264,7 +273,7 @@ export default function GameBoard() {
         <GameOver />
       ) : (
         <>
-          {WINNING_WORD.current}
+          {/* {WINNING_WORD.current} */}
           {createRow()}
           <div id="keyboard">{makeKeyboard()}</div>
           {errorMsg}
@@ -272,12 +281,6 @@ export default function GameBoard() {
       )}
       <br />
       <Reset />
-      {/* <br />
-      Guesses: {JSON.stringify(guessList)}
-      <br />
-      Current Input {JSON.stringify(currentAttempt)}
-      <br />
-      Attempt #: {attemptCount} */}
     </>
   );
 }
