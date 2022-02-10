@@ -43,17 +43,21 @@ export function getKeyColor(
   const formattedChar = keyboardEntry.toLowerCase();
   if (usedCharSet.has(formattedChar)) {
     if (matchedCharSet.has(formattedChar)) {
+      // Matching Char -> Green
       return "#6aaa64";
     } else if (
       usedCharSet.has(formattedChar) &&
       winningWord.includes(formattedChar)
     ) {
+      // Containing Char -> Yellow
       return "#b59f3b";
     } else {
-      return "gray";
+      // Losing Gray
+      return "#3a3a3c";
     }
   } else {
-    return "lightgray";
+    // Unused Chars
+    return "#818384";
   }
 }
 

@@ -55,10 +55,9 @@ export default function GameBoard() {
   });
 
   function makeKeyboard() {
-    const deleteKey = String.fromCharCode(174);
     const row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const row2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-    const row3 = ["«", "Z", "X", "C", "V", "B", "N", "M", "ENTER"];
+    const row3 = ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"];
     return (
       <>
         {[row1, row2, row3].map((row, rowIndex) => {
@@ -67,7 +66,9 @@ export default function GameBoard() {
               <div key={rowIndex} className="row">
                 {row.map((char, charIndex) => {
                   const actionBtnClass =
-                    char.toLowerCase() === "enter" ? "actionBtn" : "";
+                    char.toLowerCase() === "enter" || char === "DEL"
+                      ? "actionBtn"
+                      : "";
                   return (
                     <>
                       <div
@@ -171,25 +172,15 @@ export default function GameBoard() {
   }
 
   function setCurrentInputAttempt(char) {
-    // console.log("keydown", WINNING_WORD);
-    // console.log("raw key: ", char);
     setErrorMsg("");
 
     const currentGuess = guessList[attemptCount].guess;
-    // console.log("currentGuess: ", currentGuess, currentGuess.length);
     const charsOnlyRegex = new RegExp(/[a-z]/);
-    // if (currentGuess.length -1 <= 5) {
     const letter = char.toLowerCase();
-    // console.log(charsOnlyRegex.test(letter));
 
     if (!letter) {
       console.log("no valid input");
-    }
-
-    if (letter === "enter") {
-      // console.log("submitting");
-      onEnterPressed();
-    } else if (letter.length > 1 || letter === "«") {
+    } else if (letter === "«" || letter === "backspace") {
       // console.log("trimming");
       // const currentGuess = guessList[attemptCount].guess;
       // console.log(currentGuess);
@@ -207,8 +198,11 @@ export default function GameBoard() {
       // console.log(JSON.stringify(newList, null, 2));
       setGuessList(newList);
       // setCurrentAttempt(currentAttempt.slice(0, currentAttempt.length - 1));
-    } else if (letter === "shift") {
-      console.log("shifty");
+    } else if (letter === "enter") {
+      // console.log("submitting");
+      onEnterPressed();
+    } else if (letter.length > 1) {
+    } else if (currentGuess.length >= MAX_WORD_LENGTH) {
     } else if (charsOnlyRegex.test(letter)) {
       if (attemptCount < 5) {
         // console.log("Setting: ", currentAttempt + letter);
@@ -230,7 +224,6 @@ export default function GameBoard() {
         setGuessList(newList);
       }
     }
-    // }
   }
 
   function handleKeyDown(e) {
