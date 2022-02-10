@@ -55,37 +55,32 @@ export default function GameBoard() {
   });
 
   function makeKeyboard() {
+    const deleteKey = String.fromCharCode(174);
     const row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const row2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-    const row3 = ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"];
+    const row3 = ["«", "Z", "X", "C", "V", "B", "N", "M", "ENTER"];
     return (
       <>
         {[row1, row2, row3].map((row, rowIndex) => {
           return (
             <>
-              <div id="keyrow" key={rowIndex} className="row">
+              <div key={rowIndex} className="row">
                 {row.map((char, charIndex) => {
-                  const keyStyles = {
-                    padding: "15px",
-                    margin: "2px",
-                    border: "1px solid whitesmoke",
-                    color: "black",
-                    fontWeight: "bold",
-                    borderRadius: "10px",
-                    backgroundColor: `${getKeyColor(
-                      char,
-                      WINNING_WORD,
-                      usedCharSet,
-                      matchedCharSet
-                    )}`,
-                  };
-
+                  const actionBtnClass =
+                    char.toLowerCase() === "enter" ? "actionBtn" : "";
                   return (
                     <>
                       <div
                         key={charIndex}
-                        className="key"
-                        style={keyStyles}
+                        style={{
+                          backgroundColor: `${getKeyColor(
+                            char,
+                            WINNING_WORD,
+                            usedCharSet,
+                            matchedCharSet
+                          )}`,
+                        }}
+                        className={`keychar ${actionBtnClass}`}
                         onClick={() => setCurrentInputAttempt(char)}
                       >
                         {char}
@@ -109,22 +104,15 @@ export default function GameBoard() {
 
         return (
           <div
-            className="charBox"
+            className="guessGridBox"
             key={charIndex}
             style={{
-              width: "50px",
-              height: "50px",
-              fontSize: "35px",
-              lineHeight: "50px",
-              fontWeight: "bold",
-              // border: "1px solid #aaa",
-              margin: "10px",
               backgroundColor: `${getBackgroundColor(
                 printedChar,
                 guessList?.[rowIndex]?.isSubmitted,
                 charIndex,
                 WINNING_WORD,
-                "darkgray"
+                "#111"
               )}`,
             }}
           >
@@ -201,7 +189,7 @@ export default function GameBoard() {
     if (letter === "enter") {
       // console.log("submitting");
       onEnterPressed();
-    } else if (letter === "backspace" || letter === "del") {
+    } else if (letter.length > 1 || letter === "«") {
       // console.log("trimming");
       // const currentGuess = guessList[attemptCount].guess;
       // console.log(currentGuess);
@@ -273,8 +261,7 @@ export default function GameBoard() {
         <GameOver />
       ) : (
         <>
-          {/* {WINNING_WORD.current} */}
-          {createRow()}
+          <div id="letterBox">{createRow()}</div>
           <div id="keyboard">{makeKeyboard()}</div>
           {errorMsg}
         </>

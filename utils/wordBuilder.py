@@ -5,7 +5,7 @@ def is_five_letters(word):
         return word
 
 def has_special_chars(word): 
-    if '-' not in word and '.' not in word:
+    if '-' not in word and '.' not in word and '\'' not in word:
         return word
 
 def format_word(word): 
@@ -13,7 +13,7 @@ def format_word(word):
     return formatted_word
 
 def load_words():
-    with open('words.txt') as word_file:
+    with open('ALL_WORDS.txt') as word_file:
         valid_words = set(word_file.read().split()) ## Read File
         five_letter_words = filter(is_five_letters, valid_words)  # Filter out five letter words
         no_special_chars = filter(has_special_chars, five_letter_words) # filter out special chars
