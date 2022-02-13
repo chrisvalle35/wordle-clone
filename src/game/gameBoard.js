@@ -105,7 +105,7 @@ export default function GameBoard() {
 
         return (
           <div
-            className="guessGridBox noselect"
+            className="guessGridBox noselect "
             key={charIndex}
             style={{
               backgroundColor: `${getBackgroundColor(
@@ -117,11 +117,16 @@ export default function GameBoard() {
               )}`,
             }}
           >
-            <span>{printedChar}</span>
+            <span className="">{printedChar}</span>
           </div>
         );
       });
   }
+
+  // function isNewInput() {
+  //   // retu
+  // set new css on new additional char to String
+  // }
 
   function createRow() {
     return Array.from({ length: MAX_GUESSES })
