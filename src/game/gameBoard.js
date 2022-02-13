@@ -105,7 +105,7 @@ export default function GameBoard() {
 
         return (
           <div
-            className="guessGridBox"
+            className="guessGridBox noselect"
             key={charIndex}
             style={{
               backgroundColor: `${getBackgroundColor(
@@ -146,7 +146,7 @@ export default function GameBoard() {
       setErrorMsg("Use a longer word");
     } else if (isWord === false) {
       setErrorMsg("Word must be in list");
-    } else if (currentAttempt.length <= MAX_GUESSES) {
+    } else if (currentAttempt.length <= MAX_WORD_LENGTH) {
       // console.log("input.length", input.length);
       // console.log("characterLimit", characterLimit);
       const newGuess = {
@@ -158,12 +158,13 @@ export default function GameBoard() {
       let newList = [...guessList];
       newList[attemptCount] = newGuess;
       setGuessList(newList);
-      setAttemptCount(attemptCount + 1);
+      const newAttemptCount = attemptCount + 1;
+      setAttemptCount(newAttemptCount);
 
       if (currentAttempt === WINNING_WORD) {
         setWinner(true);
       }
-      if (attemptCount === MAX_GUESSES) {
+      if (newAttemptCount === MAX_GUESSES) {
         setGameOver(true);
       }
     } else {
@@ -267,14 +268,46 @@ export default function GameBoard() {
 function GameOver() {
   return (
     <>
-      <h1>GAME OVER</h1>
+      <h1>YOU LOST GAME OVER!</h1>
+      <div>
+        <iframe
+          src="https://giphy.com/embed/yatOmFJnu32lW"
+          title="lose"
+          width="480"
+          height="460"
+          frameBorder="0"
+          class="giphy-embed"
+          allowFullScreen
+        ></iframe>
+        <p>
+          <a href="https://giphy.com/gifs/chilli-yatOmFJnu32lW">via GIPHY</a>
+        </p>
+      </div>
     </>
   );
 }
 function Winner() {
   return (
     <>
-      <alert>YOU WIN</alert>
+      <div>
+        <span>YOU WIN</span>
+        <div>
+          <iframe
+            src="https://giphy.com/embed/kyLYXonQYYfwYDIeZl"
+            title="celebrate"
+            width="480"
+            height="360"
+            frameBorder="0"
+            class="giphy-embed"
+            allowFullScreen
+          ></iframe>
+          <p>
+            <a href="https://giphy.com/gifs/sesamestreet-sesame-street-50th-anniversary-kyLYXonQYYfwYDIeZl">
+              via GIPHY
+            </a>
+          </p>
+        </div>
+      </div>
     </>
   );
 }

@@ -41,7 +41,7 @@ h1 {
   font-size: 35px;
   line-height: 50px;
   font-weight: bold;
-  margin: 10px;
+  margin: 5px;
   border: 1px solid #aaa;
 }
 
@@ -64,4 +64,14 @@ h1 {
 .actionBtn {
   font-size: 75%;
   max-width: 60px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
