@@ -146,7 +146,7 @@ export default function GameBoard() {
       setErrorMsg("Use a longer word");
     } else if (isWord === false) {
       setErrorMsg("Word must be in list");
-    } else if (currentAttempt.length <= MAX_WORD_LENGTH) {
+    } else if (currentAttempt.length <= MAX_GUESSES) {
       // console.log("input.length", input.length);
       // console.log("characterLimit", characterLimit);
       const newGuess = {
@@ -180,7 +180,7 @@ export default function GameBoard() {
 
     if (!letter) {
       console.log("no valid input");
-    } else if (letter === "«" || letter === "backspace") {
+    } else if (letter === "«" || letter === "backspace" || letter === "del") {
       // console.log("trimming");
       // const currentGuess = guessList[attemptCount].guess;
       // console.log(currentGuess);
@@ -199,12 +199,11 @@ export default function GameBoard() {
       setGuessList(newList);
       // setCurrentAttempt(currentAttempt.slice(0, currentAttempt.length - 1));
     } else if (letter === "enter") {
-      // console.log("submitting");
       onEnterPressed();
     } else if (letter.length > 1) {
     } else if (currentGuess.length >= MAX_WORD_LENGTH) {
     } else if (charsOnlyRegex.test(letter)) {
-      if (attemptCount < 5) {
+      if (attemptCount < MAX_GUESSES) {
         // console.log("Setting: ", currentAttempt + letter);
         // const currentGuess = guessList[attemptCount].guess;
         // console.log("CURRENTGUESS", currentGuess);
