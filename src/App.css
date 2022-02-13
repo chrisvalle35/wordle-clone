@@ -64,6 +64,7 @@ h1 {
 .actionBtn {
   font-size: 75%;
   max-width: 60px;
+  padding: 0 3px 0 3px;
 }
 
 .noselect {

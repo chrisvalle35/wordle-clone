@@ -57,7 +57,7 @@ export default function GameBoard() {
   function makeKeyboard() {
     const row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const row2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-    const row3 = ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"];
+    const row3 = ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "DEL"];
     return (
       <>
         {[row1, row2, row3].map((row, rowIndex) => {
