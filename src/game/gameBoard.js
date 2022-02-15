@@ -274,7 +274,8 @@ export default function GameBoard() {
   );
 }
 
-function GameOver(word) {
+function GameOver(winningWord) {
+  const { word } = winningWord;
   return (
     <>
       <h1>YOU LOST GAME OVER!</h1>
@@ -288,6 +289,7 @@ function GameOver(word) {
           class="giphy-embed"
           allowFullScreen
         ></iframe>
+        <br />
         <span>The word was: {word}</span>
       </div>
     </>
