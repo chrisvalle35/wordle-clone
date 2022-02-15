@@ -177,6 +177,10 @@ export default function GameBoard() {
     }
   }
 
+  // function flipCard(charBox) {
+  //   charBox.style = "";
+  // }
+
   function setCurrentInputAttempt(char) {
     setErrorMsg("");
 
@@ -256,7 +260,7 @@ export default function GameBoard() {
       {isWinner === true ? (
         <Winner />
       ) : isGameOver === true ? (
-        <GameOver />
+        <GameOver word={WINNING_WORD} />
       ) : (
         <>
           <div id="letterBox">{createRow()}</div>
@@ -270,7 +274,7 @@ export default function GameBoard() {
   );
 }
 
-function GameOver() {
+function GameOver(word) {
   return (
     <>
       <h1>YOU LOST GAME OVER!</h1>
@@ -284,9 +288,7 @@ function GameOver() {
           class="giphy-embed"
           allowFullScreen
         ></iframe>
-        <p>
-          <a href="https://giphy.com/gifs/chilli-yatOmFJnu32lW">via GIPHY</a>
-        </p>
+        <span>The word was: {word}</span>
       </div>
     </>
   );
@@ -306,11 +308,7 @@ function Winner() {
             class="giphy-embed"
             allowFullScreen
           ></iframe>
-          <p>
-            <a href="https://giphy.com/gifs/sesamestreet-sesame-street-50th-anniversary-kyLYXonQYYfwYDIeZl">
-              via GIPHY
-            </a>
-          </p>
+          <p></p>
         </div>
       </div>
     </>
